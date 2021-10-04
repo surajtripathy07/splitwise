@@ -1,0 +1,23 @@
+<%= form_for @settlement_input do |f| %>
+  <br><br>
+  <%= f.label :paid_by %>:
+  <%= f.collection_select :paid_by, @users, :id, :user_name %><br />
+
+  <%= f.label :description %>:
+  <%= f.text_field :description %><br />
+
+  <%= f.label :amount %>:
+  <%= f.text_field :amount %><br />
+  
+  <%= f.label :split_ratio %>: <br />
+
+  <%= f.fields_for :settlements, @settlement_input.settlements do |split_fields| %>
+  	<%= split_fields.label "#{split_fields.object.user_name}" %>:  
+  	<%= split_fields.hidden_field :user_name %>
+  	<%= split_fields.text_field :split_ratio %>
+  	<br>
+  <% end %> 
+  
+
+  <%= f.submit %>
+<% end %>
